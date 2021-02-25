@@ -1,0 +1,2 @@
+Hello world!
+Search string is empty!
