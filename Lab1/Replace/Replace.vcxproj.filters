@@ -19,4 +19,21 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="test-data\input.txt" />
+    <Text Include="test-data\output.txt" />
+    <Text Include="test-data\not-all-options-output.txt" />
+    <Text Include="test-data\not-exists-output.txt" />
+    <Text Include="test-data\multiple-occurrence.txt" />
+    <Text Include="test-data\multiple-occurrence-output.txt" />
+    <Text Include="test-data\replace-name.txt" />
+    <Text Include="test-data\replace-name-output.txt" />
+    <Text Include="test-data\numbers.txt" />
+    <Text Include="test-data\numbers-output.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test.bat">
+      <Filter>Исходные файлы</Filter>
+    </None>
+  </ItemGroup>
 </Project>
