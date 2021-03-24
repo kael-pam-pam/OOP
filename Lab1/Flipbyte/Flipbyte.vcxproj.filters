@@ -19,4 +19,17 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="test.bat">
+      <Filter>Исходные файлы</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test-data\not-option-output.txt" />
+    <Text Include="test-data\option-not-number-output.txt" />
+    <Text Include="test-data\option-number-out-of-range-output.txt" />
+    <Text Include="test-data\option-0-output.txt" />
+    <Text Include="test-data\option-6-output.txt" />
+    <Text Include="test-data\option-255-output.txt" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,2 @@
+Argument out of range.
+Input number must be in the range from 0 to 255

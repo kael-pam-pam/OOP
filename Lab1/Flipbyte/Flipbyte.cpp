@@ -8,9 +8,9 @@ struct Args
 	std::string inputStrNumber;
 };
 
-struct ConvertArgs
+struct ConvertResult
 {
-	int number;
+	unsigned char number;
 };
 
 std::optional<Args> ParseArgs(int argc, char* argv[])
@@ -26,7 +26,7 @@ std::optional<Args> ParseArgs(int argc, char* argv[])
 	return args;
 }
 
-std::optional<ConvertArgs> ConvertToInt(const std::string& strNumber)
+std::optional<ConvertResult> ConvertToInt(const std::string& strNumber)
 {
 	size_t pos;
 	int res;
@@ -42,25 +42,25 @@ std::optional<ConvertArgs> ConvertToInt(const std::string& strNumber)
 			throw std::invalid_argument("Invalid argument");
 		}
 	}
-	catch (std::invalid_argument& e)
+	catch (std::invalid_argument)
 	{
 		std::cout << "Invalid argument.\n";
 		std::cout << "Argument must be a number\n";
 		return std::nullopt;
 	}
-	catch (std::out_of_range& e)
+	catch (std::out_of_range)
 	{
-		std::cout << "Argument out of range\n";
+		std::cout << "Argument out of range.\n";
 		std::cout << "Input number must be in the range from 0 to 255\n";
 		return std::nullopt;
 	}
 
-	ConvertArgs args;
+	ConvertResult args;
 	args.number = res;
 	return args;
 }
 
-int ReverseBytes(const int& number)
+unsigned char ReverseBytes(const unsigned char& number)
 {
 	return ((number & 0x1) << 7) | ((number & 0x2) << 5) | ((number & 0x4) << 3) | ((number & 0x8) << 1) | ((number & 0x10) >> 1) | ((number & 0x20) >> 3) | ((number & 0x40) >> 5) | ((number & 0x80) >> 7);
 }
@@ -73,13 +73,12 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	auto convertArgs = ConvertToInt(args->inputStrNumber);
-	if (!convertArgs)
+	auto ConvertResult = ConvertToInt(args->inputStrNumber);
+	if (!ConvertResult)
 	{
 		return 1;
 	}
 
-	std::cout << ReverseBytes(convertArgs->number) << "\n";
-
+	std::cout << static_cast<int>(ReverseBytes(ConvertResult->number)) << "\n";
 	return 0;
 }
