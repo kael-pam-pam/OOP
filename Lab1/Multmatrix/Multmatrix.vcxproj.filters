@@ -22,5 +22,22 @@
   <ItemGroup>
     <Text Include="test-data\matrix1.txt" />
     <Text Include="test-data\matrix2.txt" />
+    <Text Include="test-data\not-option-output.txt" />
+    <Text Include="test-data\not-exists-output.txt" />
+    <Text Include="test-data\not-matrix3x3-output.txt" />
+    <Text Include="test-data\not-matrix3x3.txt" />
+    <Text Include="test-data\test1-matrix1.txt" />
+    <Text Include="test-data\test1-matrix2.txt" />
+    <Text Include="test-data\test1-multMatrix-output.txt" />
+    <Text Include="test-data\test2-multMatrix-output.txt" />
+    <Text Include="test-data\test2-matrix1.txt" />
+    <Text Include="test-data\test2-matrix2.txt" />
+    <Text Include="test-data\string-in-file.txt" />
+    <Text Include="test-data\string-in-file-output.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test.bat">
+      <Filter>Исходные файлы</Filter>
+    </None>
   </ItemGroup>
 </Project>

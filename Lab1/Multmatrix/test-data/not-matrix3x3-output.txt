@@ -1,0 +1,2 @@
+Invalid matrix.
+Matrix must be quadratic 3x3

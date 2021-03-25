@@ -5,7 +5,7 @@
 #include <string>
 
 const int size = 3;
-typedef double Matrix[size][size];
+typedef float Matrix[size][size];
 
 struct Args
 {
@@ -41,14 +41,14 @@ int OpenFile(std::ifstream& file, std::string path)
 int LoadMatrixLine(const std::string& line, Matrix& matrix, int matrixLineIndex, int countElements)
 {
 	std::stringstream lineStream(line);
-	double element;
+	float element;
 	int elementIndex = 0;
 	while (lineStream >> element)
 	{
 		matrix[matrixLineIndex][elementIndex] = element;
 		elementIndex++;
 	}
-	if (elementIndex > countElements)
+	if (elementIndex != countElements)
 	{
 		return 0;
 	}
@@ -68,14 +68,14 @@ int LoadMatrixFromFile(std::ifstream& file, Matrix& matrix)
 		}
 		lineIndex++;
 	}
-	if (lineIndex > size)
+	if (lineIndex != size)
 	{
 		errorCode = 0;
 	}
 	if (errorCode == 0)
 	{
 		std::cout << "Invalid matrix.\n";
-		std::cout << "Matrix must be quadratic\n";
+		std::cout << "Matrix must be quadratic 3x3\n";
 		return errorCode;
 	}
 	return errorCode;
@@ -87,14 +87,11 @@ void PrintMatrix(const Matrix& matrix)
 	{
 		for (int j = 0; j < size; j++)
 		{
-			/*
 			if (j != 0)
 			{
-				std::cout << " ";
+				std::cout << "\t";
 			}
-			std::cout << matrix[i][j];
-			*/
-			printf("%.3f\t", matrix[i][j]);
+			printf("%.3f", matrix[i][j]);
 		}
 		std::cout << "\n";
 	}
