@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Replace", "Replace\Replace.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Flipbyte", "Flipbyte\Flipbyte.vcxproj", "{0CC676D2-EDDF-43F3-AFDB-FFB425DF95DE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Multmatrix", "Multmatrix\Multmatrix.vcxproj", "{0C2A6F50-884F-4069-B9AD-3909E2A2B625}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{0CC676D2-EDDF-43F3-AFDB-FFB425DF95DE}.Release|x64.Build.0 = Release|x64
 		{0CC676D2-EDDF-43F3-AFDB-FFB425DF95DE}.Release|x86.ActiveCfg = Release|Win32
 		{0CC676D2-EDDF-43F3-AFDB-FFB425DF95DE}.Release|x86.Build.0 = Release|Win32
+		{0C2A6F50-884F-4069-B9AD-3909E2A2B625}.Debug|x64.ActiveCfg = Debug|x64
+		{0C2A6F50-884F-4069-B9AD-3909E2A2B625}.Debug|x64.Build.0 = Debug|x64
+		{0C2A6F50-884F-4069-B9AD-3909E2A2B625}.Debug|x86.ActiveCfg = Debug|Win32
+		{0C2A6F50-884F-4069-B9AD-3909E2A2B625}.Debug|x86.Build.0 = Debug|Win32
+		{0C2A6F50-884F-4069-B9AD-3909E2A2B625}.Release|x64.ActiveCfg = Release|x64
+		{0C2A6F50-884F-4069-B9AD-3909E2A2B625}.Release|x64.Build.0 = Release|x64
+		{0C2A6F50-884F-4069-B9AD-3909E2A2B625}.Release|x86.ActiveCfg = Release|Win32
+		{0C2A6F50-884F-4069-B9AD-3909E2A2B625}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
