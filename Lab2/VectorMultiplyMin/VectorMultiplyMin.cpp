@@ -3,5 +3,7 @@
 int main()
 {
 	std::vector<float> vect = GetVectorOfFloatFromStream(std::cin);
-	PrintVectorOfFloatToStream(std::cout, SortVectorOfFloat(MultiplyVectorOfFloatByMinElement(vect)));
+	MultiplyVectorOfFloatByMinElement(vect);
+	std::sort(vect.begin(), vect.end());
+	PrintVectorOfFloatToStream(std::cout, vect);
 }
