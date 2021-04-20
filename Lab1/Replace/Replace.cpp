@@ -54,7 +54,7 @@ std::string ReplaceInLine(const std::string& inputLine, const std::string& searc
 	return replacedString;
 }
 
-void ReplaceInFile(std::ifstream& inputFile, std::ofstream& outputFile, const std::string& searchString, const std::string& replaceString)
+void ReplaceInFile(std::istream& inputFile, std::ostream& outputFile, const std::string& searchString, const std::string& replaceString)
 {
 	std::string line;
 	while (std::getline(inputFile, line))
