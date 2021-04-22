@@ -1,6 +1,7 @@
 #include "HtmlLib.h"
 
-void main() 
+int main() 
 {   
     PrintEncodedInputString(std::cin, std::cout);
+    return 0;
 }

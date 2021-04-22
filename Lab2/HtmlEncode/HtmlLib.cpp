@@ -4,9 +4,15 @@
 
 std::string EncodeChar(char ch)
 {
-    static std::vector<std::pair<char, std::string>> mapSymbToHtml = { {'"', "&quot;"}, {'\'', "&apos;"}, {'<', "&lt;"}, {'>', "&gt;"}, {'&', "&amp;"} };
+    static std::vector<std::pair<char, std::string>> mapSymbToHtml = { 
+        {'"', "&quot;"}, 
+        {'\'', "&apos;"}, 
+        {'<', "&lt;"}, 
+        {'>', "&gt;"}, 
+        {'&', "&amp;"} };
 
-    std::vector<std::pair<char, std::string>>::iterator it = std::find_if(mapSymbToHtml.begin(), mapSymbToHtml.end(), [&](const auto& elem) { return (elem.first == ch); });
+    auto it = std::find_if(mapSymbToHtml.begin(), mapSymbToHtml.end(), 
+        [&](const auto& elem) { return (elem.first == ch); });
     if (it != mapSymbToHtml.end())
     {
         return it->second;
@@ -20,14 +26,14 @@ std::string EncodeChar(char ch)
 
 std::string EncodeString(const std::string& inputString)
 {
-    std::string encodedLine = "";
-    for (const auto& ch : inputString)
+    std::string encodedLine;
+    encodedLine.reserve(inputString.length());
+    for (char ch : inputString)
     {
         encodedLine += EncodeChar(ch);
     }
     return encodedLine;
 }
-
 
 void PrintEncodedInputString(std::istream& inputStream, std::ostream& outputStream)
 {
