@@ -1,6 +1,6 @@
 #include "CCar.h"
 
-const std::pair<int, int> ReverseSpeedRange = { -20, 0 };
+const std::pair<int, int> ReverseSpeedRange = { 0, 20 };
 const std::pair<int, int> FirstSpeedRange = { 0, 30 };
 const std::pair<int, int> SecondSpeedRange = { 20, 50 };
 const std::pair<int, int> ThirdSpeedRange = { 30,60 };
@@ -81,33 +81,22 @@ bool CCar::SetGear(int gear)
 		return true;
 	}
 
-	switch(gear)
+	if (gear == 0)
 	{
-	case 0:
 		m_gear = gear;
 		return true;
-	case 1:
-		if ((m_direction == Direction::FORWARD || m_direction == Direction::HOLD) && InRange(m_speed, FirstSpeedRange))
-		{
-			m_gear = gear;
-			return true;
-		}
-		return false;
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-		if (m_direction == Direction::FORWARD && (InRange(m_speed, FirstSpeedRange)
-			|| InRange(m_speed, SecondSpeedRange)
-			|| InRange(m_speed, ThirdSpeedRange)
-			|| InRange(m_speed, FourthSpeedRange)
-			|| InRange(m_speed, FifthSpeedRange)))
-		{
-			m_gear = gear;
-			return true;
-		}
-		return false;
-	default: 
+	}
+	else if ((gear == 1 && (m_direction == Direction::FORWARD || m_direction == Direction::HOLD) && InRange(m_speed, FirstSpeedRange)) 
+		|| (gear == 2 && m_direction == Direction::FORWARD && InRange(m_speed, SecondSpeedRange)) 
+		|| (gear == 3 && m_direction == Direction::FORWARD && InRange(m_speed, ThirdSpeedRange)) 
+		|| (gear == 4 && m_direction == Direction::FORWARD && InRange(m_speed, FourthSpeedRange)) 
+		|| (gear == 5 && m_direction == Direction::FORWARD && InRange(m_speed, FifthSpeedRange)))
+	{
+		m_gear = gear;
+		return true;
+	}
+	else
+	{
 		return false;
 	}
 }
@@ -121,60 +110,29 @@ bool CCar::SetSpeed(int speed)
 		return true;
 	}
 
-	switch (m_gear)
+	if (m_gear == -1 && InRange(speed, ReverseSpeedRange))
 	{
-	case -1:
-		if (InRange(speed, ReverseSpeedRange))
-		{
-			m_direction = Direction::BACKWARD;
-			m_speed = speed;
-			return true;
-		}
-		return false;
-	case 0:
-		if (abs(speed) < abs(m_speed))
-		{
-			m_speed = speed;
-			return true;
-		}
-		return false;
-	case 1:
-		if (InRange(speed, FirstSpeedRange))
-		{
-			m_direction = Direction::FORWARD;
-			m_speed = speed;
-			return true;
-		}
-		return false;
-	case 2:
-		if (InRange(speed, SecondSpeedRange))
-		{
-			m_speed = speed;
-			return true;
-		}
-		return false;
-	case 3:
-		if (InRange(speed, ThirdSpeedRange))
-		{
-			m_speed = speed;
-			return true;
-		}
-		return false;
-	case 4:
-		if (InRange(speed, FourthSpeedRange))
-		{
-			m_speed = speed;
-			return true;
-		}
-		return false;
-	case 5:
-		if (InRange(speed, FifthSpeedRange))
-		{
-			m_speed = speed;
-			return true;
-		}
-		return false;
-	default:
+		m_direction = Direction::BACKWARD;
+		m_speed = speed;
+		return true;
+	}
+	else if (m_gear == 1 && InRange(speed, FirstSpeedRange))
+	{
+		m_direction = Direction::FORWARD;
+		m_speed = speed;
+		return true;
+	}
+	else if ((m_gear == 0 && abs(speed) < abs(m_speed))
+		|| (m_gear == 2 && InRange(speed, SecondSpeedRange))
+		|| (m_gear == 3 && InRange(speed, ThirdSpeedRange))
+		|| (m_gear == 4 && InRange(speed, FourthSpeedRange))
+		|| (m_gear == 5 && InRange(speed, FifthSpeedRange)))
+	{
+		m_speed = speed;
+		return true;
+	}
+	else
+	{
 		return false;
 	}
 }

@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN  
 #include <catch2/catch.hpp>
 #include "../Car/CCar.h"
+#include "../Car/CDashboard.h"
 
 
 TEST_CASE("Test class Ccar")
@@ -67,7 +68,9 @@ TEST_CASE("Test class Ccar")
 			//increase speed
 			REQUIRE(car.TurnOnEngine());
 			REQUIRE(car.SetGear(1));
+			REQUIRE(car.GetDirection() == Direction::HOLD);
 			REQUIRE(car.SetSpeed(10));
+			REQUIRE(car.GetDirection() == Direction::FORWARD);
 			REQUIRE(car.GetSpeed() == 10);
 			REQUIRE(car.SetSpeed(30));
 
@@ -79,17 +82,26 @@ TEST_CASE("Test class Ccar")
 
 			//increase/reduce speed in 0 gear
 			REQUIRE(car.SetGear(0));
+			REQUIRE(car.GetDirection() == Direction::FORWARD);
 			REQUIRE(car.SetSpeed(5) == false);
 			REQUIRE(car.SetSpeed(4));
 
 			//increase/reduce speed in -1 gear
 			REQUIRE(car.SetSpeed(0));
+			REQUIRE(car.GetDirection() == Direction::HOLD);
 			REQUIRE(car.SetGear(-1));
-			REQUIRE(car.SetSpeed(-10));
-			REQUIRE(car.SetSpeed(-20));
-			REQUIRE(car.SetSpeed(-21) == false);
-			REQUIRE(car.SetSpeed(-15));
-			REQUIRE(car.SetSpeed(15) == false);
+			REQUIRE(car.SetSpeed(10));
+			REQUIRE(car.GetDirection() == Direction::BACKWARD);
+			REQUIRE(car.SetSpeed(20));
+			REQUIRE(car.SetSpeed(21) == false);
+			REQUIRE(car.SetSpeed(15));
+
+			//change gear between -1 and 1
+			REQUIRE(car.SetGear(1) == false);
+			REQUIRE(car.GetDirection() == Direction::BACKWARD);
+			REQUIRE(car.SetSpeed(0));
+			REQUIRE(car.SetGear(1));
+			REQUIRE(car.SetSpeed(15));
 		}	
 	}
 
@@ -112,7 +124,7 @@ TEST_CASE("Test class Ccar")
 			//-1 gear
 			REQUIRE(car.GetSpeed() == 0);
 			REQUIRE(car.SetGear(-1));
-			REQUIRE(car.SetSpeed(-10));
+			REQUIRE(car.SetSpeed(10));
 			
 			//not exists gear
 			REQUIRE(car.SetGear(-2) == false);
@@ -122,13 +134,15 @@ TEST_CASE("Test class Ccar")
 			REQUIRE(car.SetGear(0));
 			REQUIRE(car.SetGear(-1) == false);
 			REQUIRE(car.SetSpeed(0) == true);
-			REQUIRE(car.SetGear(1) == true);
+			REQUIRE(car.SetGear(1));
 			
 			//1-5 gear
-			REQUIRE(car.SetSpeed(25) == true);
-			REQUIRE(car.SetGear(2) == true);
-			REQUIRE(car.SetSpeed(45) == true);
-			REQUIRE(car.SetGear(3) == true);
+			REQUIRE(car.SetSpeed(25));
+			REQUIRE(car.SetGear(2));
+			REQUIRE(car.SetSpeed(45));
+			REQUIRE(car.SetGear(3));
+			REQUIRE(car.SetGear(4));
+			REQUIRE(car.SetGear(5) == false);
 			REQUIRE(car.SetSpeed(55) == true);
 			REQUIRE(car.SetGear(4) == true);
 			REQUIRE(car.SetSpeed(85) == true);
@@ -138,16 +152,41 @@ TEST_CASE("Test class Ccar")
 			//not exists gear
 			REQUIRE(car.SetGear(6) == false);
 		}
-		
 	}
+}
 
+TEST_CASE("Test class CDashboard")
+{
+	CCar car;
+	std::istringstream input("EngineOn\nSetGear 1\nSetSpeed 30\nInfo\nSetSpeed 0\nSetGear 0\nEngineOff\n");
+	std::ostringstream output;
+	CDashboard dashboard(car, input, output);
 
-	//“ест: проверка передач (только [-1..5])
-	//“ест: переключение скоростей при пересечении диапазонов и одинаковом направлении движени€
-	//“ест: скорость на передаче ограничена диапазоном (не больше, не меньше)
-	//“ест: на нейтральной передача можно только уменьшить скорость (по модулю)
-	//“ест: переключение на задний ход с первой/нейтральной и наоборот только через нулевую скорость
-	
-	//“ест: при выключенном двигателе переключение только возможно только на нейтраль.
+	dashboard.HandleCommand();
+	REQUIRE("Engine: on\n" == output.str());
+	output.str("");
 
+	dashboard.HandleCommand();
+	REQUIRE("Gear 1 changed\n" == output.str());
+	output.str("");
+
+	dashboard.HandleCommand();
+	REQUIRE("Speed 30 changed\n" == output.str());
+	output.str("");
+
+	dashboard.HandleCommand();
+	REQUIRE("Engine: on\nSpeed: 30\nDirection: forward\nGear: 1\n" == output.str());
+	output.str("");
+
+	dashboard.HandleCommand();
+	REQUIRE("Speed 0 changed\n" == output.str());
+	output.str("");
+
+	dashboard.HandleCommand();
+	REQUIRE("Gear 0 changed\n" == output.str());
+	output.str("");
+
+	dashboard.HandleCommand();
+	REQUIRE("Engine: off\n" == output.str());
+	output.str("");
 }

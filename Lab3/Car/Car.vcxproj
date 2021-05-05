@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCar.h" />
+    <ClInclude Include="CDashboard.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCar.cpp" />
+    <ClCompile Include="CDashboard.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

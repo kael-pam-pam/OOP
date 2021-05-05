@@ -1,8 +1,20 @@
-//#include "Ccar.h"
+#include "Ccar.h"
+#include "CDashboard.h"
 #include <iostream>
 
 int main()
 {
-    std::cout << "Hello world";
-    return 0;
+	CCar car;
+
+	CDashboard dashboard(car, std::cin, std::cout);
+
+	while (!std::cin.eof() && !std::cin.fail())
+	{
+		std::cout << "> ";
+		if (!dashboard.HandleCommand())
+		{
+			std::cout << "Unknown command!\n";
+		}
+	}
+	return 0;
 }
