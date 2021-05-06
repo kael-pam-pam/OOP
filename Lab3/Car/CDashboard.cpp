@@ -11,6 +11,8 @@ std::string DirectionString(Direction dr)
 		return "forward";
 	case Direction::HOLD:
 		return "hold";
+	default:
+		return "";
 	}
 }
 
@@ -20,7 +22,7 @@ bool GetNumberFromStr(std::string inputStr, int& outputNum)
 	{
 		outputNum = stoi(inputStr);
 	}
-	catch (std::exception& exception)
+	catch (std::exception&)
 	{
 		return false;
 	}
