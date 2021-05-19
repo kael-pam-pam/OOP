@@ -122,7 +122,7 @@ bool CCar::SetSpeed(int speed)
 		m_speed = speed;
 		return true;
 	}
-	else if ((m_gear == 0 && abs(speed) < abs(m_speed))
+	else if ((m_gear == 0 && speed < m_speed)
 		|| (m_gear == 2 && InRange(speed, SecondSpeedRange))
 		|| (m_gear == 3 && InRange(speed, ThirdSpeedRange))
 		|| (m_gear == 4 && InRange(speed, FourthSpeedRange))
