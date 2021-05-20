@@ -1,5 +1,5 @@
 #pragma once
-#include "CPoint.h"
+#include "IShape.h"
 #include <iostream>
 #include <map>
 #include <string>

@@ -1,4 +1,9 @@
 #include "CDashboard.h"
+#include "CPoint.h"
+#include "CLineSegment.h"
+#include "CTriangle.h"
+#include "CRectangle.h"
+#include "CCircle.h"
 #include <sstream>
 #include <iterator>
 #include <algorithm>
