@@ -72,5 +72,35 @@ TEST_CASE("Test class CTriangle")
 
 TEST_CASE("Test class CDashboard")
 {
+	std::istringstream input("line 1.1 1.2 5.1 1.2 f12345\ntriangle 1 1 5 1 3 5 12345f 000005\ncircle 1 1 5.5 12345f 000005\nrectangle 1 1 10 5 000005 12345f\nprintShapes\n");
+	std::ostringstream output;
+	CDashboard dashboard(input, output);
+
+	dashboard.PrintShapes();
+	REQUIRE("Shape list has no one element for print\n" == output.str());
+
+	output.str("");
+	dashboard.PrintShapeWithMaxArea();
+	REQUIRE("Shape list has no one element with max area\n" == output.str());
+
+	output.str("");
+	dashboard.PrintShapeWithMinPerimeter();
+	REQUIRE("Shape list has no one element with min perimeter\n" == output.str());
+	
+	output.str("");
+	dashboard.HandleCommand();
+	dashboard.HandleCommand();
+	dashboard.HandleCommand();
+	dashboard.HandleCommand();
+	REQUIRE("" == output.str());
+	
+	output.str("");
+	input.str("triangle 3\ntriangle 1 1 5 1 3 5 1L345f");
+	dashboard.HandleCommand();
+	REQUIRE("Uncorrect arguments\n" == output.str());
+
+	output.str("");
+	dashboard.HandleCommand();
+	REQUIRE("Uncorrect arguments\n" == output.str());
 
 }
