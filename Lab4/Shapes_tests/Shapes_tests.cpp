@@ -8,6 +8,7 @@
 #include "../Shapes/CRectangle.h"
 #include "../Shapes/CCircle.h"
 #include "../Shapes/CDashboard.h"
+#include "../Shapes/lib.h"
 
 #include <string>
 using namespace Catch::literals;
@@ -29,7 +30,7 @@ TEST_CASE("Test class CLineSegment")
 
 TEST_CASE("Test class CRectangle")
 {
-	std::string outputString = "Rectangle:\n  Height: 5.000000\n  Width: 10.000000\n  Left top point: (1.000000, 1.000000)\n  Right bottom point: (6.000000, 11.000000)\n  Area: 50.000000\n  Perimeter: 30.000000\n  Ouline color: 000005\n  Fill color: 12345f";
+	std::string outputString = "Rectangle:\n  Height: 5.000000\n  Width: 10.000000\n  Left top point: (1.000000, 1.000000)\n  Area: 50.000000\n  Perimeter: 30.000000\n  Ouline color: 000005\n  Fill color: 12345f";
 							   
 	CRectangle rectangle(CPoint(1, 1), 10, 5, 5, 1193055);
 
@@ -66,7 +67,6 @@ TEST_CASE("Test class CTriangle")
 	REQUIRE(triangle.GetVertex1().GetX() == 1);
 	REQUIRE(triangle.GetVertex1().GetY() == 1);
 	REQUIRE(triangle.GetSide1() == 4);
-	REQUIRE(CTriangle::GetLine(CPoint(1, 1), CPoint(1,5)) == 4);
 }
 
 
@@ -102,5 +102,4 @@ TEST_CASE("Test class CDashboard")
 	output.str("");
 	dashboard.HandleCommand();
 	REQUIRE("Uncorrect arguments\n" == output.str());
-
 }

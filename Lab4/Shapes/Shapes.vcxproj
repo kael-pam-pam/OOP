@@ -150,6 +150,7 @@
     <ClCompile Include="CPoint.cpp" />
     <ClCompile Include="CSolidShape.cpp" />
     <ClCompile Include="CTriangle.cpp" />
+    <ClCompile Include="lib.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CDashboard.cpp" />
   </ItemGroup>
@@ -164,6 +165,7 @@
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="IShape.h" />
     <ClInclude Include="ISolidShape.h" />
+    <ClInclude Include="lib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

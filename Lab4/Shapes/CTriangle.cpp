@@ -1,4 +1,5 @@
 #include "CTriangle.h"
+#include "lib.h"
 #include <cmath>
 
 CTriangle::CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, uint32_t outlineColor, uint32_t fillColor)
@@ -45,20 +46,16 @@ CPoint CTriangle::GetVertex3() const
 
 double CTriangle::GetSide1() const 
 { 
-	return GetLine(m_vertex1, m_vertex2); 
+	return GetDistance(m_vertex1, m_vertex2);
 }
 
 double CTriangle::GetSide2() const 
 { 
-	return GetLine(m_vertex2, m_vertex3); 
+	return GetDistance(m_vertex2, m_vertex3);
 }
 
 double CTriangle::GetSide3() const 
 { 
-	return GetLine(m_vertex3, m_vertex1); 
+	return GetDistance(m_vertex3, m_vertex1);
 }
 
-double CTriangle::GetLine(const CPoint& vertexA, const CPoint& vertexB) 
-{ 
-	return hypot(vertexA.GetX() - vertexB.GetX(), vertexA.GetY() - vertexB.GetY()); 
-}

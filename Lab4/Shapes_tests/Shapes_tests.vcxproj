@@ -151,6 +151,7 @@
     <ClCompile Include="..\Shapes\CShape.cpp" />
     <ClCompile Include="..\Shapes\CSolidShape.cpp" />
     <ClCompile Include="..\Shapes\CTriangle.cpp" />
+    <ClCompile Include="..\Shapes\lib.cpp" />
     <ClCompile Include="Shapes_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +163,7 @@
     <ClInclude Include="..\Shapes\CShape.h" />
     <ClInclude Include="..\Shapes\CSolidShape.h" />
     <ClInclude Include="..\Shapes\CTriangle.h" />
+    <ClInclude Include="..\Shapes\lib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

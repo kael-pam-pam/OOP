@@ -16,7 +16,6 @@ public:
 	bool PrintShapeWithMaxArea() const;
 	bool PrintShapeWithMinPerimeter() const;
 	bool PrintShapes() const;
-	static bool IsHexColor(const std::string& inputStr);
 private:
 	bool SetTempInputArgs(std::istream& strm);
 
@@ -33,21 +32,4 @@ private:
 	std::vector<std::shared_ptr<IShape>> m_shapeList;
 };
 
-
-/*
-
-#include <sstream>
-#include <iomanip>
-
-
-static std::string IntToHexString(uint32_t number);
-
-std::string IntToHexString(uint32_t number)
-{
-	std::stringstream stream;
-	stream << std::setfill('0') << std::setw(6) << std::hex << 125;
-	std::cout << stream.str();
-}
-
-*/
 
