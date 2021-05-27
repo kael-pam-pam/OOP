@@ -10,10 +10,10 @@
 #include "../Shapes/CDashboard.h"
 
 #include <string>
+using namespace Catch::literals;
 
 TEST_CASE("Test class CLineSegment")
 {
-	using namespace Catch::literals;
 	std::string outputString = "Line:\n  Start point: (1.100000, 1.200000)\n  End point: (5.100000, 1.200000)\n  Area: 0.000000\n  Perimeter: 4.000000\n  Ouline color: f12345";
 	double perimeter = 4.0;
 	double startPointX = 1.1, startPointY = 1.2;
@@ -36,26 +36,41 @@ TEST_CASE("Test class CRectangle")
 	REQUIRE(rectangle.GetArea() == 50.0);
 	REQUIRE(rectangle.GetPerimeter() == 30.0);
 	REQUIRE(rectangle.ToString() == outputString);
+	REQUIRE(rectangle.GetWidth() == 10.0);
+	REQUIRE(rectangle.GetHeight() == 5.0);
 }
 
-/*
 TEST_CASE("Test class CCircle")
 {
+	std::string outputString = "Circle:\n  Center: (1.000000, 1.000000)\n  Radius: 5.500000\n  Area: 95.033178\n  Perimeter: 34.557519\n  Ouline color: 12345f\n  Fill color: 000005";
+
+	CCircle circle(CPoint(1, 1), 5.5, 1193055, 5);
+
+	REQUIRE(Approx(circle.GetArea()).epsilon(1e-8) == 95.033178);
+	REQUIRE(Approx(circle.GetPerimeter()).epsilon(1e-8) == 34.557519);
+	REQUIRE(circle.ToString() == outputString);
+	REQUIRE(circle.GetCenter().GetX() == 1);
+	REQUIRE(circle.GetCenter().GetY() == 1);
+	REQUIRE(circle.GetRadius() == 5.5);
 }
 
 TEST_CASE("Test class CTriangle")
 {
+	std::string outputString = "Triangle:\n  First vertex: (1.000000, 1.000000)\n  Second vertex: (5.000000, 1.000000)\n  Third vertex: (3.000000, 5.000000)\n  First side: 4.000000\n  Second side: 4.472136\n  Third side: 4.472136\n  Area: 8.000000\n  Perimeter: 12.944272\n  Ouline color: 12345f\n  Fill color: 000005";
+	
+	CTriangle triangle(CPoint(1, 1), CPoint(5, 1), CPoint(3, 5), 1193055, 5);
+
+	REQUIRE(Approx(triangle.GetArea()).epsilon(1e-8) == 8.0);
+	REQUIRE(Approx(triangle.GetPerimeter()).epsilon(1e-8) == 12.94427191);
+	REQUIRE(triangle.ToString() == outputString);
+	REQUIRE(triangle.GetVertex1().GetX() == 1);
+	REQUIRE(triangle.GetVertex1().GetY() == 1);
+	REQUIRE(triangle.GetSide1() == 4);
+	REQUIRE(CTriangle::GetLine(CPoint(1, 1), CPoint(1,5)) == 4);
 }
-*/
+
 
 TEST_CASE("Test class CDashboard")
 {
-	std::istringstream input("line []\ntriangle []\ncircle []\nrectangle []\nprintShapes\n");
-	std::ostringstream output;
-	CDashboard dashboard(input, output);
-
-	dashboard.HandleCommand();
-	REQUIRE("Engine: on\n" == output.str());
-	output.str("");
 
 }

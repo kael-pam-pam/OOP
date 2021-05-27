@@ -23,7 +23,7 @@ double CTriangle::GetPerimeter() const
 std::string CTriangle::ToString() const
 {
 	return "Triangle:\n  First vertex: " + m_vertex1.ToString() + "\n  Second vertex: " + m_vertex2.ToString() + "\n  Third vertex: " + m_vertex3.ToString() +
-		"\n  First side: " + std::to_string(GetSide1()) + "\n  Second side:  " + std::to_string(GetSide2()) + "\n  Third side:  " + std::to_string(GetSide3()) +
+		"\n  First side: " + std::to_string(GetSide1()) + "\n  Second side: " + std::to_string(GetSide2()) + "\n  Third side: " + std::to_string(GetSide3()) +
 		"\n  Area: " + std::to_string(GetArea()) + "\n  Perimeter: " + std::to_string(GetPerimeter()) +
 		"\n  Ouline color: " + CShape::IntToHexString(GetOutlineColor()) + "\n  Fill color: " + CShape::IntToHexString(GetFillColor());
 }
