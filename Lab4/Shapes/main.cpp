@@ -10,10 +10,11 @@ int main()
 		std::cout << "> ";
 		if (!dashboard.HandleCommand())
 		{
-			std::cout << "Unknown shape!\n";
+			std::cout << "Unknown command\n";
 		}
 	}
 	dashboard.PrintShapeWithMaxArea();
 	dashboard.PrintShapeWithMinPerimeter();
+
 	return 0;
 }

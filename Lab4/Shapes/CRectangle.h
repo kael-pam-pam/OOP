@@ -1,14 +1,13 @@
 #pragma once
-#include "CShape.h"
 #include "CSolidShape.h"
 #include "CPoint.h"
 #include <string>
 
-class CRectangle : public CShape, public CSolidShape
+class CRectangle : public CSolidShape
 {
 public:
 	CRectangle(const CPoint& leftTop, double width, double height, uint32_t outlineColor, uint32_t fillColor);
-	CRectangle(const CPoint& leftTop, const CPoint& rightBottom, uint32_t outlineColor, uint32_t fillColor);
+	//CRectangle(const CPoint& leftTop, const CPoint& rightBottom, uint32_t outlineColor, uint32_t fillColor);
 	double GetArea() const override;
 	double GetPerimeter() const override;
 	std::string ToString() const override;

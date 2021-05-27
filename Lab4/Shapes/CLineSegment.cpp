@@ -21,7 +21,7 @@ double CLineSegment::GetPerimeter() const
 std::string CLineSegment::ToString() const
 {
 	return "Line:\n  Start point: " + m_startPoint.ToString() + "\n  End point: " + m_endPoint.ToString() + "\n  Area: " + std::to_string(GetArea())
-		+ "\n  Perimeter: " + std::to_string(GetPerimeter()) + "\n  Ouline color: " + std::to_string(GetOutlineColor());
+		+ "\n  Perimeter: " + std::to_string(GetPerimeter()) + "\n  Ouline color: " + CShape::IntToHexString(GetOutlineColor());
 }
 
 CPoint CLineSegment::GetStartPoint() const

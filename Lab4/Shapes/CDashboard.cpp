@@ -8,6 +8,7 @@
 #include <iterator>
 #include <algorithm>
 
+
 CDashboard::CDashboard(std::istream& input, std::ostream& output)
 	: m_input(input)
 	, m_output(output)
@@ -69,6 +70,22 @@ bool CDashboard::SetTempInputArgs(std::istream& strm)
 	return true;
 }
 
+bool CDashboard::IsHexColor(const std::string& inputStr)
+{
+	if (inputStr.length() != 6)
+	{
+		return false;
+	}
+	for (auto ch : inputStr)
+	{
+		if (!isdigit(ch) && !(ch >= 'a' && ch <= 'f'))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 bool CDashboard::AddLine()
 {	
 	double startPointX, startPointY, endPointX, endPointY;
@@ -77,12 +94,16 @@ bool CDashboard::AddLine()
 	{
 		if (m_tempInputArgs.size() != 5)
 		{
-			throw std::out_of_range("Invalid hex color");
+			throw std::out_of_range("");
 		}
 		startPointX = stod(m_tempInputArgs[0]);
 		startPointY = stod(m_tempInputArgs[1]);
 		endPointX = stod(m_tempInputArgs[2]);
 		endPointY = stod(m_tempInputArgs[3]);
+		if (!IsHexColor(m_tempInputArgs[4]))
+		{
+			throw std::out_of_range("");
+		}
 		outlineColor = stoul(m_tempInputArgs[4], nullptr, 16);
 	}
 	catch (std::exception&)
@@ -103,7 +124,7 @@ bool CDashboard::AddTriangle()
 	{
 		if (m_tempInputArgs.size() != 8)
 		{
-			throw std::out_of_range("Invalid hex color");
+			throw std::out_of_range("");
 		}
 		vertex1X = stod(m_tempInputArgs[0]);
 		vertex1Y = stod(m_tempInputArgs[1]);
@@ -111,6 +132,10 @@ bool CDashboard::AddTriangle()
 		vertex2Y = stod(m_tempInputArgs[3]);
 		vertex3X = stod(m_tempInputArgs[4]);
 		vertex3Y = stod(m_tempInputArgs[5]);
+		if (!IsHexColor(m_tempInputArgs[6]) || !IsHexColor(m_tempInputArgs[7]))
+		{
+			throw std::out_of_range("");
+		}
 		outlineColor = stoul(m_tempInputArgs[6], nullptr, 16);
 		fillColor = stoul(m_tempInputArgs[7], nullptr, 16);
 	}
@@ -132,12 +157,16 @@ bool CDashboard::AddRectangle()
 	{
 		if (m_tempInputArgs.size() != 6)
 		{
-			throw std::out_of_range("Invalid hex color");
+			throw std::out_of_range("");
 		}
 		leftTopX = stod(m_tempInputArgs[0]);
 		leftTopY = stod(m_tempInputArgs[1]);
 		width = stod(m_tempInputArgs[2]);
 		height = stod(m_tempInputArgs[3]);
+		if (!IsHexColor(m_tempInputArgs[4]) || !IsHexColor(m_tempInputArgs[5]))
+		{
+			throw std::out_of_range("");
+		}
 		outlineColor = stoul(m_tempInputArgs[4], nullptr, 16);
 		fillColor = stoul(m_tempInputArgs[5], nullptr, 16);
 	}
@@ -159,11 +188,15 @@ bool CDashboard::AddCircle()
 	{
 		if (m_tempInputArgs.size() != 5)
 		{
-			throw std::out_of_range("Invalid hex color");
+			throw std::out_of_range("");
 		}
 		centerX = stod(m_tempInputArgs[0]);
 		centerY = stod(m_tempInputArgs[1]);
 		radius = stod(m_tempInputArgs[2]);
+		if (!IsHexColor(m_tempInputArgs[3]) || !IsHexColor(m_tempInputArgs[4]))
+		{
+			throw std::out_of_range("");
+		}
 		outlineColor = stoul(m_tempInputArgs[3], nullptr, 16);
 		fillColor = stoul(m_tempInputArgs[4], nullptr, 16);
 	}
@@ -181,14 +214,14 @@ bool CDashboard::PrintShapeWithMaxArea() const
 {
 	if (m_shapeList.size() == 0)
 	{
-		m_output << "Empty shape list\n";
+		m_output << "Shape list has no one element with max area\n";
 		return false;
 	}
 
 	auto it = std::max_element(m_shapeList.cbegin(), m_shapeList.cend(), [](const auto& shape1, const auto& shape2) {
 		return shape1->GetArea() < shape2->GetArea();
 	});
-
+	
 	m_output << "Shape with max area is " << (*it)->ToString() << "\n";
 	return true;
 }
@@ -197,14 +230,14 @@ bool CDashboard::PrintShapeWithMinPerimeter() const
 {
 	if (m_shapeList.size() == 0)
 	{
-		m_output << "Empty shape list\n";
+		m_output << "Shape list has no one element with min perimeter\n";
 		return false;
 	}
 
 	auto it = std::min_element(m_shapeList.cbegin(), m_shapeList.cend(), [](const auto& shape1, const auto& shape2) {
 		return shape1->GetPerimeter() < shape2->GetPerimeter();
-		});
-
+	});
+	
 	m_output << "Shape with min perimeter is " << (*it)->ToString() << "\n";
 	return true;
 }
@@ -213,7 +246,7 @@ bool CDashboard::PrintShapes() const
 {
 	if (m_shapeList.size() == 0)
 	{
-		m_output << "Empty shape list\n";
+		m_output << "Shape list has no one element for print\n";
 		return false;
 	}
 

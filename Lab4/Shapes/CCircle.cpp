@@ -4,8 +4,7 @@
 CCircle::CCircle(const CPoint& center, double radius, uint32_t outlineColor, uint32_t fillColor)
 	: m_center(center)
 	, m_radius(radius)
-	, CShape(outlineColor)
-	, CSolidShape(fillColor)
+	, CSolidShape(outlineColor, fillColor)
 {
 }
 
@@ -23,7 +22,7 @@ std::string CCircle::ToString() const
 {
 	return "Circle:\n  Center: " + m_center.ToString() + "\n  Radius: " + std::to_string(m_radius) +
 		"\n  Area: " + std::to_string(GetArea()) + "\n  Perimeter: " + std::to_string(GetPerimeter()) +
-		"\n  Ouline color: " + std::to_string(GetOutlineColor()) + "\n  Fill color: " + std::to_string(GetFillColor());
+		"\n  Ouline color: " + CShape::IntToHexString(GetOutlineColor()) + "\n  Fill color: " + CShape::IntToHexString(GetFillColor());
 }
 
 CPoint CCircle::GetCenter() const 

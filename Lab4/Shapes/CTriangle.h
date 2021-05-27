@@ -1,10 +1,9 @@
 #pragma once
-#include "CShape.h"
 #include "CSolidShape.h"
 #include "CPoint.h"
 #include <string>
 
-class CTriangle : public CShape, public CSolidShape
+class CTriangle : public CSolidShape
 {
 public:
 	CTriangle(const CPoint& vertex1, const CPoint& vertex2, const CPoint& vertex3, uint32_t outlineColor, uint32_t fillColor);
