@@ -16,7 +16,6 @@ public:
 	double GetSide1() const;
 	double GetSide2() const;
 	double GetSide3() const;
-	static double GetLine(const CPoint& vertexA, const CPoint& vertexB);
 private:
 	CPoint m_vertex1;
 	CPoint m_vertex2;

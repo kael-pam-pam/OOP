@@ -4,10 +4,10 @@
 #include "CTriangle.h"
 #include "CRectangle.h"
 #include "CCircle.h"
+#include "lib.h"
 #include <sstream>
 #include <iterator>
 #include <algorithm>
-
 
 CDashboard::CDashboard(std::istream& input, std::ostream& output)
 	: m_input(input)
@@ -67,22 +67,6 @@ bool CDashboard::SetTempInputArgs(std::istream& strm)
 	std::istream_iterator<std::string> strmBegin(strm);
 	std::istream_iterator<std::string> strmEnd;
 	std::copy(strmBegin, strmEnd, std::inserter(m_tempInputArgs, m_tempInputArgs.begin()));
-	return true;
-}
-
-bool CDashboard::IsHexColor(const std::string& inputStr)
-{
-	if (inputStr.length() != 6)
-	{
-		return false;
-	}
-	for (auto ch : inputStr)
-	{
-		if (!isdigit(ch) && !(ch >= 'a' && ch <= 'f'))
-		{
-			return false;
-		}
-	}
 	return true;
 }
 

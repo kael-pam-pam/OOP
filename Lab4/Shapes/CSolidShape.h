@@ -2,7 +2,7 @@
 #include "ISolidShape.h"
 #include "CShape.h"
 
-class CSolidShape : virtual public ISolidShape, public CShape
+class CSolidShape : public ISolidShape, public CShape
 {
 public:
 	CSolidShape(uint32_t outlineColor, uint32_t fillColor);
