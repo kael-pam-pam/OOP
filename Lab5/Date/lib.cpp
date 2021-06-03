@@ -19,12 +19,12 @@ bool IsLeapYear(unsigned year)
 
 unsigned DaysInYear(unsigned year)
 {
-	return (IsLeapYear(year)) ? 366 : 365;
+	return (IsLeapYear(year)) ? 366U : 365U;
 }
 
 unsigned DaysInMonth(unsigned year, unsigned month)
 {
-	unsigned daysInMonth[12] = { 31, (IsLeapYear(year)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	unsigned daysInMonth[12] = { 31, (IsLeapYear(year)) ? 29U : 28U, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	return daysInMonth[month];
 }
 

@@ -3,7 +3,7 @@
 
 CDate::CDate(unsigned day, Month month, unsigned year)
 {			
-	if (year >= 1970 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DaysInMonth(year, month - 1))
+	if (year >= 1970 && year <= 9999 && static_cast<int>(month) >= 1 && static_cast<int>(month) <= 12 && day >= 1 && day <= DaysInMonth(year, static_cast<int>(month) - 1))
 	{
 		unsigned cYear = 1970, cMonth = 0, cDays = 0;
 		while (cYear < year)
@@ -12,7 +12,7 @@ CDate::CDate(unsigned day, Month month, unsigned year)
 			cYear++;
 		}
 
-		while (cMonth < month - 1)
+		while (cMonth < static_cast<unsigned>(month) - 1)
 		{
 			cDays += DaysInMonth(cYear, cMonth);
 			cMonth++;

@@ -20,23 +20,23 @@ TEST_CASE("Test class CDate")
 
 	SECTION("17 FEBRUARY 1973")
 	{
-		CDate date(17, FEBRUARY, 1973);
+		CDate date(17, Month::FEBRUARY, 1973);
 		REQUIRE(date.GetYear() == 1973);
-		REQUIRE(date.GetMonth() == FEBRUARY);
+		REQUIRE(date.GetMonth() == Month::FEBRUARY);
 		REQUIRE(date.GetDay() == 17);
 	}
 	SECTION("3 JUNE 2021")
 	{
-		CDate date(3, JUNE, 2021);
+		CDate date(3, Month::JUNE, 2021);
 		REQUIRE(date.GetYear() == 2021);
-		REQUIRE(date.GetMonth() == JUNE);
+		REQUIRE(date.GetMonth() == Month::JUNE);
 		REQUIRE(date.GetDay() == 3);
 	}
 	SECTION("0")
 	{
 		CDate date(0);
 		REQUIRE(date.GetDay() == 1);
-		REQUIRE(date.GetMonth() == JANUARY);
+		REQUIRE(date.GetMonth() == Month::JANUARY);
 		REQUIRE(date.GetYear() == 1970);
 		REQUIRE(date.GetWeekDay() == WeekDay::THURSDAY);
 		REQUIRE(date.GetDayOfYear() == 0);
@@ -45,7 +45,7 @@ TEST_CASE("Test class CDate")
 	{
 		CDate date(1);
 		REQUIRE(date.GetDay() == 2);
-		REQUIRE(date.GetMonth() == JANUARY);
+		REQUIRE(date.GetMonth() == Month::JANUARY);
 		REQUIRE(date.GetYear() == 1970);
 		REQUIRE(date.GetWeekDay() == WeekDay::FRIDAY);
 		REQUIRE(date.GetDayOfYear() == 1);
@@ -54,7 +54,7 @@ TEST_CASE("Test class CDate")
 	{
 		CDate date(365);
 		REQUIRE(date.GetDay() == 1);
-		REQUIRE(date.GetMonth() == JANUARY);
+		REQUIRE(date.GetMonth() == Month::JANUARY);
 		REQUIRE(date.GetYear() == 1971);
 		REQUIRE(date.GetWeekDay() == WeekDay::FRIDAY);
 		REQUIRE(date.GetDayOfYear() == 0);
@@ -63,7 +63,7 @@ TEST_CASE("Test class CDate")
 	{
 		CDate date(730);
 		REQUIRE(date.GetDay() == 1);
-		REQUIRE(date.GetMonth() == JANUARY);
+		REQUIRE(date.GetMonth() == Month::JANUARY);
 		REQUIRE(date.GetYear() == 1972);
 		REQUIRE(date.GetWeekDay() == WeekDay::SATURDAY);
 		REQUIRE(date.GetDayOfYear() == 0);
@@ -72,7 +72,7 @@ TEST_CASE("Test class CDate")
 	{
 		CDate date(1095);
 		REQUIRE(date.GetDay() == 31);
-		REQUIRE(date.GetMonth() == DECEMBER);
+		REQUIRE(date.GetMonth() == Month::DECEMBER);
 		REQUIRE(date.GetYear() == 1972);
 		REQUIRE(date.GetWeekDay() == WeekDay::SUNDAY);
 		REQUIRE(date.GetDayOfYear() == 365);
@@ -151,22 +151,22 @@ TEST_CASE("Test class CDate")
 		CDate date1(10);
 		REQUIRE(date1.IsValid());
 		REQUIRE(date1.GetDay() == 11);
-		REQUIRE(date1.GetMonth() == JANUARY);
+		REQUIRE(date1.GetMonth() == Month::JANUARY);
 		REQUIRE(date1.GetYear() == 1970);
 		date1 += 10;
 		REQUIRE(date1.IsValid());
 		REQUIRE(date1.GetDay() == 21);
-		REQUIRE(date1.GetMonth() == JANUARY);
+		REQUIRE(date1.GetMonth() == Month::JANUARY);
 		REQUIRE(date1.GetYear() == 1970);
 		date1 -= 30;
 		REQUIRE_FALSE(date1.IsValid());
 		REQUIRE(date1.GetDay() == 11);
-		REQUIRE(date1.GetMonth() == JANUARY);
+		REQUIRE(date1.GetMonth() == Month::JANUARY);
 		REQUIRE(date1.GetYear() == 11761191);
 		date1 += 30;
 		REQUIRE_FALSE(date1.IsValid());
 		REQUIRE(date1.GetDay() == 11);
-		REQUIRE(date1.GetMonth() == JANUARY);
+		REQUIRE(date1.GetMonth() == Month::JANUARY);
 		REQUIRE(date1.GetYear() == 11761191);
 		std::ostringstream output;
 		output << date1;
