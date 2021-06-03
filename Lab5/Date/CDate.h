@@ -27,7 +27,6 @@ public:
 	const CDate operator-(unsigned days) const;
 	const CDate operator+(unsigned days) const;
 	friend std::ostream& operator<<(std::ostream& sOut, const CDate& rDate);
-	//friend std::istream& operator>>(std::istream& sIn, const CDate& rDate);
 	CDate& operator++();
 	const CDate& operator++(int);
 	CDate& operator--();

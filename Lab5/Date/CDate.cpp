@@ -1,29 +1,29 @@
 #include "CDate.h"
 #include <iomanip>
 
-			CDate::CDate(unsigned day, Month month, unsigned year)
-			{			
-				if (year >= 1970 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DaysInMonth(year, month-1))
-				{
-					unsigned cYear = 1970, cMonth = 0, cDays = 0;
-					while (cYear < year)
-					{
-						cDays += DaysInYear(cYear);
-						cYear++;
-					}
+CDate::CDate(unsigned day, Month month, unsigned year)
+{			
+	if (year >= 1970 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DaysInMonth(year, month - 1))
+	{
+		unsigned cYear = 1970, cMonth = 0, cDays = 0;
+		while (cYear < year)
+		{
+			cDays += DaysInYear(cYear);
+			cYear++;
+		}
 
-					while (cMonth < month - 1)
-					{
-						cDays += DaysInMonth(cYear, cMonth);
-						cMonth++;
-					}
-					cDays += day - 1;
-					m_days = cDays;
-					return;
-				}
-				m_days = 0;
-				m_isValid = false;
-			}
+		while (cMonth < month - 1)
+		{
+			cDays += DaysInMonth(cYear, cMonth);
+			cMonth++;
+		}
+		cDays += day - 1;
+		m_days = cDays;
+		return;
+	}
+	m_days = 0;
+	m_isValid = false;
+}
 
 CDate::CDate(unsigned timestamp)
 	: m_days(timestamp)
@@ -62,8 +62,7 @@ unsigned CDate::GetDayOfYear() const
 
 WeekDay CDate::GetWeekDay() const
 {
-	int daysInWeek = 7;
-	switch (m_days % daysInWeek)
+	switch (m_days % 7)
 	{
 		case 0: return THURSDAY;
 		case 1: return FRIDAY;
@@ -82,8 +81,7 @@ void CDate::setIsValid()
 	{
 		return;
 	}
-	int daysToMaxDate = 2932896;
-	m_isValid = (m_days >= 0) && (m_days <= daysToMaxDate);
+	m_isValid = (m_days >= 0) && (m_days <= 2932896);
 }
 
 bool CDate::IsValid() const
@@ -204,21 +202,3 @@ std::ostream& operator<<(std::ostream& sOut, const CDate& rDate)
 	}
 	return sOut;
 }
-
-/*
-std::istream& operator>>(std::istream& sIn, const CDate& rDate)
-{
-	unsigned day, year;
-	Month month;
-	
-	if ((sIn >> day) && (sIn.get() == '.') && (sIn >> month) && (sIn.get() == '.') && (sIn >> year))
-	{
-		rDate = CDate(day, month, year);
-	}
-	else
-	{
-		sIn.setstate(std::ios_base::failbit | sIn.rdstate());
-	}
-	return sIn;
-}
-*/
