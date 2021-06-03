@@ -2,6 +2,7 @@
 #include <catch2/catch.hpp>
 #include "../Date/CDate.h"
 #include "../Date/lib.h"
+#include <string>
 
 TEST_CASE("Test lib")
 {
@@ -120,7 +121,7 @@ TEST_CASE("Test class CDate")
 		REQUIRE((date3 - date2) == -10);
 		REQUIRE((date3 + 5) == date1);
 	}
-	SECTION("OPERATOR ++")
+	SECTION("OPERATOR ++ AND --")
 	{
 		CDate date1(10), date2(11), date3(12), date4(10);
 		date1++;
@@ -131,5 +132,44 @@ TEST_CASE("Test class CDate")
 		REQUIRE(date1 == date2);
 		date1--;
 		REQUIRE(date1 == date4);
+	}
+	SECTION("OPERATOR <<")
+	{
+		CDate date1(10);
+		std::ostringstream output;
+		output << date1;
+		REQUIRE(output.str() == "11.01.1970");
+		output.str("");
+		output << (date1 - 9);
+		REQUIRE(output.str() == "02.01.1970");
+		output.str("");
+		output << (date1 - 20);
+		REQUIRE(output.str() == "INVALID");
+	}
+	SECTION("FUNCTION IsValid()")
+	{
+		CDate date1(10);
+		REQUIRE(date1.IsValid());
+		REQUIRE(date1.GetDay() == 11);
+		REQUIRE(date1.GetMonth() == JANUARY);
+		REQUIRE(date1.GetYear() == 1970);
+		date1 += 10;
+		REQUIRE(date1.IsValid());
+		REQUIRE(date1.GetDay() == 21);
+		REQUIRE(date1.GetMonth() == JANUARY);
+		REQUIRE(date1.GetYear() == 1970);
+		date1 -= 30;
+		REQUIRE_FALSE(date1.IsValid());
+		REQUIRE(date1.GetDay() == 11);
+		REQUIRE(date1.GetMonth() == JANUARY);
+		REQUIRE(date1.GetYear() == 11761191);
+		date1 += 30;
+		REQUIRE_FALSE(date1.IsValid());
+		REQUIRE(date1.GetDay() == 11);
+		REQUIRE(date1.GetMonth() == JANUARY);
+		REQUIRE(date1.GetYear() == 11761191);
+		std::ostringstream output;
+		output << date1;
+		REQUIRE(output.str() == "INVALID");
 	}
 }

@@ -26,11 +26,11 @@ public:
 	int32_t operator-(const CDate& rDate) const;
 	const CDate operator-(unsigned days) const;
 	const CDate operator+(unsigned days) const;
-	friend std::ostream& operator<<(std::ostream& sOut, const CDate& rDate);
 	CDate& operator++();
 	const CDate& operator++(int);
 	CDate& operator--();
 	const CDate& operator--(int);
+	friend std::ostream& operator<<(std::ostream& sOut, const CDate& rDate);
 private:
 	void setIsValid();
 	int m_days = 0;

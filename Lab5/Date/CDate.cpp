@@ -28,6 +28,11 @@ CDate::CDate(unsigned day, Month month, unsigned year)
 CDate::CDate(unsigned timestamp)
 	: m_days(timestamp)
 {
+	setIsValid();
+	if (!m_isValid)
+	{
+		m_days = 0;
+	}
 }
 
 unsigned CDate::GetDay() const
@@ -101,18 +106,20 @@ bool CDate::operator!=(const CDate& rDate) const
 
 CDate& CDate::operator+=(unsigned days)
 {
-	if (IsValid())
+	if (m_isValid)
 	{
 		m_days += days;
+		setIsValid();
 	}
 	return *this;
 }
 
 CDate& CDate::operator-=(unsigned days)
 {
-	if (IsValid())
+	if (m_isValid)
 	{
 		m_days -= days;
+		setIsValid();
 	}
 	return *this;
 }
@@ -154,9 +161,10 @@ const CDate CDate::operator+(unsigned days) const
 
 CDate& CDate::operator++()
 {
-	if (IsValid())
+	if (m_isValid)
 	{
 		++m_days;
+		setIsValid();
 	}
 	return *this;
 }
@@ -164,18 +172,20 @@ CDate& CDate::operator++()
 const CDate& CDate::operator++(int)
 {
 	CDate tmpCopy(*this);
-	if (IsValid())
+	if (m_isValid)
 	{
 		++m_days;
+		setIsValid();
 	}
 	return tmpCopy;
 }
 
 CDate& CDate::operator--()
 {
-	if (IsValid())
+	if (m_isValid)
 	{
 		--m_days;
+		setIsValid();
 	}
 	return *this;
 }
@@ -183,9 +193,10 @@ CDate& CDate::operator--()
 const CDate& CDate::operator--(int)
 {
 	CDate tmpCopy(*this);
-	if (IsValid())
+	if (m_isValid)
 	{
 		--m_days;
+		setIsValid();
 	}
 	return tmpCopy;
 }
