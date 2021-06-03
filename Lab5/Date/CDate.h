@@ -6,26 +6,26 @@
 class CDate
 {
 public:
-	CDate(unsigned day, Month month, unsigned year);
-	explicit CDate(unsigned timestamp = 0);
-	unsigned GetDay() const;
+	CDate(int day, Month month, int year);
+	explicit CDate(int timestamp = 0);
+	int GetDay() const;
 	Month GetMonth() const;
-	unsigned GetYear() const;
-	unsigned GetDayOfYear() const;
+	int GetYear() const;
+	int GetDayOfYear() const;
 	WeekDay GetWeekDay() const;
 	bool IsValid() const;
 
 	bool operator==(const CDate& rDate) const;
 	bool operator!=(const CDate& rDate) const;
-	CDate& operator+=(unsigned days);
-	CDate& operator-=(unsigned days);
+	CDate& operator+=(int days);
+	CDate& operator-=(int days);
 	bool operator>(const CDate& rDate) const;
 	bool operator<(const CDate& rDate) const;
 	bool operator>=(const CDate& rDate) const;
 	bool operator<=(const CDate& rDate) const;
-	int32_t operator-(const CDate& rDate) const;
-	const CDate operator-(unsigned days) const;
-	const CDate operator+(unsigned days) const;
+	int operator-(const CDate& rDate) const;
+	const CDate operator-(int days) const;
+	const CDate operator+(int days) const;
 	CDate& operator++();
 	const CDate& operator++(int);
 	CDate& operator--();

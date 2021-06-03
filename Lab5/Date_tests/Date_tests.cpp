@@ -160,14 +160,14 @@ TEST_CASE("Test class CDate")
 		REQUIRE(date1.GetYear() == 1970);
 		date1 -= 30;
 		REQUIRE_FALSE(date1.IsValid());
-		REQUIRE(date1.GetDay() == 11);
+		REQUIRE(date1.GetDay() == -9);
 		REQUIRE(date1.GetMonth() == Month::JANUARY);
-		REQUIRE(date1.GetYear() == 11761191);
+		REQUIRE(date1.GetYear() == 1970);
 		date1 += 30;
 		REQUIRE_FALSE(date1.IsValid());
-		REQUIRE(date1.GetDay() == 11);
+		REQUIRE(date1.GetDay() == -9);
 		REQUIRE(date1.GetMonth() == Month::JANUARY);
-		REQUIRE(date1.GetYear() == 11761191);
+		REQUIRE(date1.GetYear() == 1970);
 		std::ostringstream output;
 		output << date1;
 		REQUIRE(output.str() == "INVALID");

@@ -1,18 +1,18 @@
 #include "CDate.h"
 #include <iomanip>
 
-CDate::CDate(unsigned day, Month month, unsigned year)
+CDate::CDate(int day, Month month, int year)
 {			
 	if (year >= 1970 && year <= 9999 && static_cast<int>(month) >= 1 && static_cast<int>(month) <= 12 && day >= 1 && day <= DaysInMonth(year, static_cast<int>(month) - 1))
 	{
-		unsigned cYear = 1970, cMonth = 0, cDays = 0;
+		int cYear = 1970, cMonth = 0, cDays = 0;
 		while (cYear < year)
 		{
 			cDays += DaysInYear(cYear);
 			cYear++;
 		}
 
-		while (cMonth < static_cast<unsigned>(month) - 1)
+		while (cMonth < static_cast<int>(month) - 1)
 		{
 			cDays += DaysInMonth(cYear, cMonth);
 			cMonth++;
@@ -25,7 +25,7 @@ CDate::CDate(unsigned day, Month month, unsigned year)
 	m_isValid = false;
 }
 
-CDate::CDate(unsigned timestamp)
+CDate::CDate(int timestamp)
 	: m_days(timestamp)
 {
 	SetIsValid();
@@ -35,9 +35,9 @@ CDate::CDate(unsigned timestamp)
 	}
 }
 
-unsigned CDate::GetDay() const
+int CDate::GetDay() const
 {
-	unsigned days;
+	int days;
 	Month month;
 	GetMonthAndDayOfMonth(m_days, month, days);
 	return days;
@@ -45,22 +45,22 @@ unsigned CDate::GetDay() const
 
 Month CDate::GetMonth() const
 {
-	unsigned days;
+	int days;
 	Month month;
 	GetMonthAndDayOfMonth(m_days, month, days);
 	return month;
 }
 
-unsigned CDate::GetYear() const
+int CDate::GetYear() const
 {
-	unsigned year, days;
+	int year, days;
 	GetYearAndDayOfYear(m_days, year, days);
 	return year;
 }
 
-unsigned CDate::GetDayOfYear() const
+int CDate::GetDayOfYear() const
 {
-	unsigned year, days;
+	int year, days;
 	GetYearAndDayOfYear(m_days, year, days);
 	return days;
 }
@@ -105,7 +105,7 @@ bool CDate::operator!=(const CDate& rDate) const
 	return m_days != rDate.m_days;
 }
 
-CDate& CDate::operator+=(unsigned days)
+CDate& CDate::operator+=(int days)
 {
 	if (m_isValid)
 	{
@@ -115,7 +115,7 @@ CDate& CDate::operator+=(unsigned days)
 	return *this;
 }
 
-CDate& CDate::operator-=(unsigned days)
+CDate& CDate::operator-=(int days)
 {
 	if (m_isValid)
 	{
@@ -145,17 +145,17 @@ bool CDate::operator<=(const CDate& rDate) const
 	return m_days <= rDate.m_days;
 }
 
-int32_t CDate::operator-(const CDate& rDate) const
+int CDate::operator-(const CDate& rDate) const
 {
 	return m_days - rDate.m_days;
 }
 
-const CDate CDate::operator-(unsigned days) const
+const CDate CDate::operator-(int days) const
 {
 	return CDate(m_days - days);
 }
 
-const CDate CDate::operator+(unsigned days) const
+const CDate CDate::operator+(int days) const
 {
 	return CDate(m_days + days);
 }

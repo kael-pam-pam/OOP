@@ -13,8 +13,8 @@ enum class WeekDay
 	THURSDAY, FRIDAY, SATURDAY
 };
 
-bool IsLeapYear(unsigned year);
-unsigned DaysInYear(unsigned year);
-unsigned DaysInMonth(unsigned year, unsigned month);
-void GetYearAndDayOfYear(unsigned inputDays, unsigned& outputYear, unsigned& outputDays);
-void GetMonthAndDayOfMonth(unsigned inputDays, Month& outputMonth, unsigned& outputDay);
+bool IsLeapYear(int year);
+int DaysInYear(int year);
+int DaysInMonth(int year, int month);
+void GetYearAndDayOfYear(int inputDays, int& outputYear, int& outputDays);
+void GetMonthAndDayOfMonth(int inputDays, Month& outputMonth, int& outputDay);

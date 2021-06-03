@@ -1,6 +1,6 @@
 #include "lib.h"
 
-bool IsLeapYear(unsigned year)
+bool IsLeapYear(int year)
 {
 	if (year % 4 != 0)
 	{
@@ -17,20 +17,20 @@ bool IsLeapYear(unsigned year)
 	return false;
 }
 
-unsigned DaysInYear(unsigned year)
+int DaysInYear(int year)
 {
-	return (IsLeapYear(year)) ? 366U : 365U;
+	return (IsLeapYear(year)) ? 366 : 365;
 }
 
-unsigned DaysInMonth(unsigned year, unsigned month)
+int DaysInMonth(int year, int month)
 {
-	unsigned daysInMonth[12] = { 31, (IsLeapYear(year)) ? 29U : 28U, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	int daysInMonth[12] = { 31, (IsLeapYear(year)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	return daysInMonth[month];
 }
 
-void GetYearAndDayOfYear(unsigned inputDays, unsigned& outputYear, unsigned& outputDays)
+void GetYearAndDayOfYear(int inputDays, int& outputYear, int& outputDays)
 {
-	unsigned daysInCurrentYear, cYear = 1970, cDays = inputDays;
+	int daysInCurrentYear, cYear = 1970, cDays = inputDays;
 
 	daysInCurrentYear = DaysInYear(cYear);
 	while (cDays / daysInCurrentYear != 0)
@@ -43,9 +43,9 @@ void GetYearAndDayOfYear(unsigned inputDays, unsigned& outputYear, unsigned& out
 	outputYear = cYear;
 }
 
-void GetMonthAndDayOfMonth(unsigned inputDays, Month& outputMonth, unsigned& outputDay)
+void GetMonthAndDayOfMonth(int inputDays, Month& outputMonth, int& outputDay)
 {
-	unsigned year, month = 0, day;
+	int year, month = 0, day;
 	GetYearAndDayOfYear(inputDays, year, outputDay);
 	day = outputDay;
 
