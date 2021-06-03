@@ -28,7 +28,7 @@ CDate::CDate(unsigned day, Month month, unsigned year)
 CDate::CDate(unsigned timestamp)
 	: m_days(timestamp)
 {
-	setIsValid();
+	SetIsValid();
 	if (!m_isValid)
 	{
 		m_days = 0;
@@ -67,25 +67,26 @@ unsigned CDate::GetDayOfYear() const
 
 WeekDay CDate::GetWeekDay() const
 {
+	//01.01.1970 это THURSDAY
 	switch (m_days % 7)
 	{
-		case 0: return THURSDAY;
-		case 1: return FRIDAY;
-		case 2: return SATURDAY;
-		case 3: return SUNDAY;
-		case 4: return MONDAY;
-		case 5: return TUESDAY;
-		case 6: return WEDNESDAY;
-		default:;
+	case 0: return WeekDay::THURSDAY;
+	case 1: return WeekDay::FRIDAY;
+	case 2: return WeekDay::SATURDAY;
+	case 3: return WeekDay::SUNDAY;
+	case 4: return WeekDay::MONDAY;
+	case 5: return WeekDay::TUESDAY;
+	default: return WeekDay::WEDNESDAY;
 	}
 }
 
-void CDate::setIsValid()
+void CDate::SetIsValid()
 {
 	if (!m_isValid)
 	{
 		return;
 	}
+	//2932896 - количество дней, прибавив которое к крайнему значению "01.01.1970" получим крайнее значение "31.12.9999"
 	m_isValid = (m_days >= 0) && (m_days <= 2932896);
 }
 
@@ -109,7 +110,7 @@ CDate& CDate::operator+=(unsigned days)
 	if (m_isValid)
 	{
 		m_days += days;
-		setIsValid();
+		SetIsValid();
 	}
 	return *this;
 }
@@ -119,7 +120,7 @@ CDate& CDate::operator-=(unsigned days)
 	if (m_isValid)
 	{
 		m_days -= days;
-		setIsValid();
+		SetIsValid();
 	}
 	return *this;
 }
@@ -164,7 +165,7 @@ CDate& CDate::operator++()
 	if (m_isValid)
 	{
 		++m_days;
-		setIsValid();
+		SetIsValid();
 	}
 	return *this;
 }
@@ -175,7 +176,7 @@ const CDate& CDate::operator++(int)
 	if (m_isValid)
 	{
 		++m_days;
-		setIsValid();
+		SetIsValid();
 	}
 	return tmpCopy;
 }
@@ -185,7 +186,7 @@ CDate& CDate::operator--()
 	if (m_isValid)
 	{
 		--m_days;
-		setIsValid();
+		SetIsValid();
 	}
 	return *this;
 }
@@ -196,7 +197,7 @@ const CDate& CDate::operator--(int)
 	if (m_isValid)
 	{
 		--m_days;
-		setIsValid();
+		SetIsValid();
 	}
 	return tmpCopy;
 }
@@ -205,7 +206,9 @@ std::ostream& operator<<(std::ostream& sOut, const CDate& rDate)
 {
 	if (rDate.IsValid())
 	{
-		sOut << std::setfill('0') << std::setw(2) << rDate.GetDay() << "." << std::setw(2) << static_cast<int>(rDate.GetMonth()) << "." << rDate.GetYear();
+		char prevFill = sOut.fill();
+		std::streamsize prevWidth = sOut.width();
+		sOut << std::setfill('0') << std::setw(2) << rDate.GetDay() << "." << std::setw(2) << static_cast<int>(rDate.GetMonth()) << "." << rDate.GetYear() << std::setw(prevWidth) << std::setfill(prevFill);
 	}
 	else
 	{

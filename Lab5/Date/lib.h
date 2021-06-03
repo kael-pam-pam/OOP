@@ -7,7 +7,7 @@ enum Month
 	OCTOBER, NOVEMBER, DECEMBER
 };
 
-enum WeekDay
+enum class WeekDay
 {
 	SUNDAY = 0, MONDAY, TUESDAY, WEDNESDAY,
 	THURSDAY, FRIDAY, SATURDAY

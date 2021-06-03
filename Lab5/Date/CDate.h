@@ -32,7 +32,7 @@ public:
 	const CDate& operator--(int);
 	friend std::ostream& operator<<(std::ostream& sOut, const CDate& rDate);
 private:
-	void setIsValid();
+	void SetIsValid();
 	int m_days = 0;
 	bool m_isValid = true;
 };

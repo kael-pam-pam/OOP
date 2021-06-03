@@ -38,7 +38,7 @@ TEST_CASE("Test class CDate")
 		REQUIRE(date.GetDay() == 1);
 		REQUIRE(date.GetMonth() == JANUARY);
 		REQUIRE(date.GetYear() == 1970);
-		REQUIRE(date.GetWeekDay() == THURSDAY);
+		REQUIRE(date.GetWeekDay() == WeekDay::THURSDAY);
 		REQUIRE(date.GetDayOfYear() == 0);
 	}
 	SECTION("1")
@@ -47,7 +47,7 @@ TEST_CASE("Test class CDate")
 		REQUIRE(date.GetDay() == 2);
 		REQUIRE(date.GetMonth() == JANUARY);
 		REQUIRE(date.GetYear() == 1970);
-		REQUIRE(date.GetWeekDay() == FRIDAY);
+		REQUIRE(date.GetWeekDay() == WeekDay::FRIDAY);
 		REQUIRE(date.GetDayOfYear() == 1);
 	}
 	SECTION("365")
@@ -56,7 +56,7 @@ TEST_CASE("Test class CDate")
 		REQUIRE(date.GetDay() == 1);
 		REQUIRE(date.GetMonth() == JANUARY);
 		REQUIRE(date.GetYear() == 1971);
-		REQUIRE(date.GetWeekDay() == FRIDAY);
+		REQUIRE(date.GetWeekDay() == WeekDay::FRIDAY);
 		REQUIRE(date.GetDayOfYear() == 0);
 	}
 	SECTION("730")
@@ -65,7 +65,7 @@ TEST_CASE("Test class CDate")
 		REQUIRE(date.GetDay() == 1);
 		REQUIRE(date.GetMonth() == JANUARY);
 		REQUIRE(date.GetYear() == 1972);
-		REQUIRE(date.GetWeekDay() == SATURDAY);
+		REQUIRE(date.GetWeekDay() == WeekDay::SATURDAY);
 		REQUIRE(date.GetDayOfYear() == 0);
 	}
 	SECTION("1095")
@@ -74,7 +74,7 @@ TEST_CASE("Test class CDate")
 		REQUIRE(date.GetDay() == 31);
 		REQUIRE(date.GetMonth() == DECEMBER);
 		REQUIRE(date.GetYear() == 1972);
-		REQUIRE(date.GetWeekDay() == SUNDAY);
+		REQUIRE(date.GetWeekDay() == WeekDay::SUNDAY);
 		REQUIRE(date.GetDayOfYear() == 365);
 	}
 	SECTION("OPERATOR == AND !=")
