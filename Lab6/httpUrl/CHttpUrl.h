@@ -24,9 +24,8 @@ public:
 	std::string GetDocument() const;
 	Protocol GetProtocol() const;	
 	unsigned short GetPort() const;	
-private:
 	std::string GetProtocolStr() const;
-
+private:
 	std::string m_domain;
 	std::string m_document = "";
 	Protocol m_protocol;
@@ -36,5 +35,5 @@ private:
 Protocol StrToProtocol(std::string protocolStr);
 unsigned short StrToPort(const std::string& portStr);
 unsigned short GetStandartPort(Protocol protocol);
-std::string RepairDocumnent(const std::string& document);
+std::string RepairDocument(const std::string& document);
 unsigned short ValidatePort(int port);

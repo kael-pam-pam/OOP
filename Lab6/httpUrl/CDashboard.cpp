@@ -10,6 +10,15 @@ CDashboard::CDashboard(std::istream& input, std::ostream& output)
 {
 }
 
+void CDashboard::PrintURLInfo(const CHttpUrl& url)
+{
+	m_output << url.GetURL() << "\n";
+	m_output << "  protocol : " << url.GetProtocolStr() << "\n";
+	m_output << "  domain   : " << url.GetDomain() << "\n";
+	m_output << "  port     : " << url.GetPort() << "\n";
+	m_output << "  document : " << url.GetDocument() << "\n";
+}
+
 bool CDashboard::HandleCommand()
 {
 	std::string line;
@@ -26,19 +35,19 @@ bool CDashboard::HandleCommand()
 		if (args.size() == 1)
 		{
 			CHttpUrl httpUrl(args[0]);
-			m_output << httpUrl.GetURL() << "\n";
+			PrintURLInfo(httpUrl);
 			return true;
 		}
 		if (args.size() == 3)
 		{
 			CHttpUrl httpUrl(args[0], args[1], StrToProtocol(args[2]));
-			m_output << httpUrl.GetURL() << "\n";
+			PrintURLInfo(httpUrl);
 			return true;
 		}
 		if (args.size() == 4)
 		{
 			CHttpUrl httpUrl(args[0], args[1], StrToProtocol(args[2]), StrToPort(args[3]));
-			m_output << httpUrl.GetURL() << "\n";
+			PrintURLInfo(httpUrl);
 			return true;
 		}
 		std::string message = "Invalid input arguments. Type\n  <STRING url>\nOR\n  ";
