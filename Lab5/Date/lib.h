@@ -1,20 +1,20 @@
 #pragma once
 
-enum Month
+enum class Month
 {
 	JANUARY = 1, FEBRUARY, MARCH, APRIL,
 	MAY, JUNE, JULY, AUGUST, SEPTEMBER,
 	OCTOBER, NOVEMBER, DECEMBER
 };
 
-enum WeekDay
+enum class WeekDay
 {
 	SUNDAY = 0, MONDAY, TUESDAY, WEDNESDAY,
 	THURSDAY, FRIDAY, SATURDAY
 };
 
-bool IsLeapYear(unsigned year);
-unsigned DaysInYear(unsigned year);
-unsigned DaysInMonth(unsigned year, unsigned month);
-void GetYearAndDayOfYear(unsigned inputDays, unsigned& outputYear, unsigned& outputDays);
-void GetMonthAndDayOfMonth(unsigned inputDays, Month& outputMonth, unsigned& outputDay);
+bool IsLeapYear(int year);
+int DaysInYear(int year);
+int DaysInMonth(int year, int month);
+void GetYearAndDayOfYear(int inputDays, int& outputYear, int& outputDays);
+void GetMonthAndDayOfMonth(int inputDays, Month& outputMonth, int& outputDay);

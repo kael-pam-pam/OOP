@@ -1,38 +1,43 @@
 #include "CDate.h"
 #include <iomanip>
 
-			CDate::CDate(unsigned day, Month month, unsigned year)
-			{			
-				if (year >= 1970 && year <= 9999 && month >= 1 && month <= 12 && day >= 1 && day <= DaysInMonth(year, month-1))
-				{
-					unsigned cYear = 1970, cMonth = 0, cDays = 0;
-					while (cYear < year)
-					{
-						cDays += DaysInYear(cYear);
-						cYear++;
-					}
+CDate::CDate(int day, Month month, int year)
+{			
+	if (year >= 1970 && year <= 9999 && static_cast<int>(month) >= 1 && static_cast<int>(month) <= 12 && day >= 1 && day <= DaysInMonth(year, static_cast<int>(month) - 1))
+	{
+		int cYear = 1970, cMonth = 0, cDays = 0;
+		while (cYear < year)
+		{
+			cDays += DaysInYear(cYear);
+			cYear++;
+		}
 
-					while (cMonth < month - 1)
-					{
-						cDays += DaysInMonth(cYear, cMonth);
-						cMonth++;
-					}
-					cDays += day - 1;
-					m_days = cDays;
-					return;
-				}
-				m_days = 0;
-				m_isValid = false;
-			}
-
-CDate::CDate(unsigned timestamp)
-	: m_days(timestamp)
-{
+		while (cMonth < static_cast<int>(month) - 1)
+		{
+			cDays += DaysInMonth(cYear, cMonth);
+			cMonth++;
+		}
+		cDays += day - 1;
+		m_days = cDays;
+		return;
+	}
+	m_days = 0;
+	m_isValid = false;
 }
 
-unsigned CDate::GetDay() const
+CDate::CDate(int timestamp)
+	: m_days(timestamp)
 {
-	unsigned days;
+	SetIsValid();
+	if (!m_isValid)
+	{
+		m_days = 0;
+	}
+}
+
+int CDate::GetDay() const
+{
+	int days;
 	Month month;
 	GetMonthAndDayOfMonth(m_days, month, days);
 	return days;
@@ -40,50 +45,49 @@ unsigned CDate::GetDay() const
 
 Month CDate::GetMonth() const
 {
-	unsigned days;
+	int days;
 	Month month;
 	GetMonthAndDayOfMonth(m_days, month, days);
 	return month;
 }
 
-unsigned CDate::GetYear() const
+int CDate::GetYear() const
 {
-	unsigned year, days;
+	int year, days;
 	GetYearAndDayOfYear(m_days, year, days);
 	return year;
 }
 
-unsigned CDate::GetDayOfYear() const
+int CDate::GetDayOfYear() const
 {
-	unsigned year, days;
+	int year, days;
 	GetYearAndDayOfYear(m_days, year, days);
 	return days;
 }
 
 WeekDay CDate::GetWeekDay() const
 {
-	int daysInWeek = 7;
-	switch (m_days % daysInWeek)
+	//01.01.1970 это THURSDAY
+	switch (m_days % 7)
 	{
-		case 0: return THURSDAY;
-		case 1: return FRIDAY;
-		case 2: return SATURDAY;
-		case 3: return SUNDAY;
-		case 4: return MONDAY;
-		case 5: return TUESDAY;
-		case 6: return WEDNESDAY;
-		default:;
+	case 0: return WeekDay::THURSDAY;
+	case 1: return WeekDay::FRIDAY;
+	case 2: return WeekDay::SATURDAY;
+	case 3: return WeekDay::SUNDAY;
+	case 4: return WeekDay::MONDAY;
+	case 5: return WeekDay::TUESDAY;
+	default: return WeekDay::WEDNESDAY;
 	}
 }
 
-void CDate::setIsValid()
+void CDate::SetIsValid()
 {
 	if (!m_isValid)
 	{
 		return;
 	}
-	int daysToMaxDate = 2932896;
-	m_isValid = (m_days >= 0) && (m_days <= daysToMaxDate);
+	//2932896 - количество дней, прибавив которое к крайнему значению "01.01.1970" получим крайнее значение "31.12.9999"
+	m_isValid = (m_days >= 0) && (m_days <= 2932896);
 }
 
 bool CDate::IsValid() const
@@ -101,20 +105,22 @@ bool CDate::operator!=(const CDate& rDate) const
 	return m_days != rDate.m_days;
 }
 
-CDate& CDate::operator+=(unsigned days)
+CDate& CDate::operator+=(int days)
 {
-	if (IsValid())
+	if (m_isValid)
 	{
 		m_days += days;
+		SetIsValid();
 	}
 	return *this;
 }
 
-CDate& CDate::operator-=(unsigned days)
+CDate& CDate::operator-=(int days)
 {
-	if (IsValid())
+	if (m_isValid)
 	{
 		m_days -= days;
+		SetIsValid();
 	}
 	return *this;
 }
@@ -139,26 +145,27 @@ bool CDate::operator<=(const CDate& rDate) const
 	return m_days <= rDate.m_days;
 }
 
-int32_t CDate::operator-(const CDate& rDate) const
+int CDate::operator-(const CDate& rDate) const
 {
 	return m_days - rDate.m_days;
 }
 
-const CDate CDate::operator-(unsigned days) const
+const CDate CDate::operator-(int days) const
 {
 	return CDate(m_days - days);
 }
 
-const CDate CDate::operator+(unsigned days) const
+const CDate CDate::operator+(int days) const
 {
 	return CDate(m_days + days);
 }
 
 CDate& CDate::operator++()
 {
-	if (IsValid())
+	if (m_isValid)
 	{
 		++m_days;
+		SetIsValid();
 	}
 	return *this;
 }
@@ -166,18 +173,20 @@ CDate& CDate::operator++()
 const CDate& CDate::operator++(int)
 {
 	CDate tmpCopy(*this);
-	if (IsValid())
+	if (m_isValid)
 	{
 		++m_days;
+		SetIsValid();
 	}
 	return tmpCopy;
 }
 
 CDate& CDate::operator--()
 {
-	if (IsValid())
+	if (m_isValid)
 	{
 		--m_days;
+		SetIsValid();
 	}
 	return *this;
 }
@@ -185,9 +194,10 @@ CDate& CDate::operator--()
 const CDate& CDate::operator--(int)
 {
 	CDate tmpCopy(*this);
-	if (IsValid())
+	if (m_isValid)
 	{
 		--m_days;
+		SetIsValid();
 	}
 	return tmpCopy;
 }
@@ -196,7 +206,9 @@ std::ostream& operator<<(std::ostream& sOut, const CDate& rDate)
 {
 	if (rDate.IsValid())
 	{
-		sOut << std::setfill('0') << std::setw(2) << rDate.GetDay() << "." << std::setw(2) << static_cast<int>(rDate.GetMonth()) << "." << rDate.GetYear();
+		char prevFill = sOut.fill();
+		std::streamsize prevWidth = sOut.width();
+		sOut << std::setfill('0') << std::setw(2) << rDate.GetDay() << "." << std::setw(2) << static_cast<int>(rDate.GetMonth()) << "." << rDate.GetYear() << std::setw(prevWidth) << std::setfill(prevFill);
 	}
 	else
 	{
@@ -204,21 +216,3 @@ std::ostream& operator<<(std::ostream& sOut, const CDate& rDate)
 	}
 	return sOut;
 }
-
-/*
-std::istream& operator>>(std::istream& sIn, const CDate& rDate)
-{
-	unsigned day, year;
-	Month month;
-	
-	if ((sIn >> day) && (sIn.get() == '.') && (sIn >> month) && (sIn.get() == '.') && (sIn >> year))
-	{
-		rDate = CDate(day, month, year);
-	}
-	else
-	{
-		sIn.setstate(std::ios_base::failbit | sIn.rdstate());
-	}
-	return sIn;
-}
-*/
