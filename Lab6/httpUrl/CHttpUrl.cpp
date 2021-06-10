@@ -25,7 +25,7 @@ CHttpUrl::CHttpUrl(const std::string& url)
 			m_port = StrToPort(std::string(arrayParse[3]).substr(1, std::string::npos));
 		}
 
-		m_document = std::string(arrayParse[4]);
+		m_document = RepairDocumnent(std::string(arrayParse[4]));
 	}
 	else
 	{
