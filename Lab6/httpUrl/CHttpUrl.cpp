@@ -8,7 +8,7 @@
 
 CHttpUrl::CHttpUrl(const std::string& url)
 {
-	std::regex tmplate(R"(^(http|https)://([^:/? #]+)(:\d+)?(/[^? #]*)?(\?[^ #]*)?(#[^ ]*)?$)");
+	std::regex tmplate(R"(^(http|https)://([^:/? #]+)(:\d+)?(/[^? #]*)?(\?[^ #]*)?(#[^ ]*)?$)", std::regex_constants::icase);
 	std::cmatch arrayParse;
 
 	if (std::regex_match(url.c_str(), arrayParse, tmplate))

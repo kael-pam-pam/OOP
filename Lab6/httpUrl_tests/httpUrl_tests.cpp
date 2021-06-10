@@ -94,6 +94,8 @@ TEST_CASE("Test constructor CHttpUrl (v2)")
 
 TEST_CASE("Test constructor CHttpUrl (v3)")
 {
+	CHttpUrl url0("hTtP://www.ya.ru:80/about.html?id=76#main");
+	REQUIRE(url0.GetProtocol() == Protocol::HTTP);
 	CHttpUrl url1("http://www.ya.ru:80/about.html?id=76#main");
 	REQUIRE(url1.GetPort() == 80);
 	REQUIRE(url1.GetProtocol() == Protocol::HTTP);
