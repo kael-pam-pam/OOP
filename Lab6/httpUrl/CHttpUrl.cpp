@@ -8,13 +8,13 @@
 
 CHttpUrl::CHttpUrl(const std::string& url)
 {
-	std::regex tmplate(R"(^(http|https)://([^:/? #]+)(:\d+)?(/[^? #]*)?(\?[^ #]*)?(#[^ ]*)?$)");
+	std::regex tmplate(R"(^(http|https)://([^:/? #]+)(:\d+)?(/[^? #]*)?(\?[^ #]*)?(#[^ ]*)?$)", std::regex_constants::icase);
 	std::cmatch arrayParse;
 
 	if (std::regex_match(url.c_str(), arrayParse, tmplate))
 	{
-		m_protocol = StrToProtocol(std::string(arrayParse[1]));
-		m_domain = std::string(arrayParse[2]);
+		m_protocol = StrToProtocol(arrayParse[1].str());
+		m_domain = arrayParse[2].str();
 		
 		if (std::string(arrayParse[3]) == "")
 		{		
@@ -22,10 +22,10 @@ CHttpUrl::CHttpUrl(const std::string& url)
 		}
 		else
 		{
-			m_port = StrToPort(std::string(arrayParse[3]).substr(1, std::string::npos));
+			m_port = StrToPort(arrayParse[3].str().substr(1));
 		}
 
-		m_document = std::string(arrayParse[4]);
+		m_document = RepairDocument(arrayParse[4].str());
 	}
 	else
 	{
@@ -41,7 +41,7 @@ CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Proto
 	{
 		throw std::invalid_argument("Invalid URL. Type <domain>.\n");
 	}
-	m_document = RepairDocumnent(document);
+	m_document = RepairDocument(document);
 	m_port = GetStandartPort(m_protocol);
 }
 
@@ -54,7 +54,7 @@ CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Proto
 		throw std::invalid_argument("Invalid URL. Type <domain>.\n");
 	}
 	m_domain = domain;
-	m_document = RepairDocumnent(document);
+	m_document = RepairDocument(document);
 	m_protocol = protocol;
 	m_port = ValidatePort(port);
 }
@@ -118,7 +118,7 @@ unsigned short ValidatePort(int port)
 {
 	if (port < 1 || port > MAX_PORT_NUMBER)
 	{
-		throw std::out_of_range("Port number is too small/big");
+		throw std::out_of_range("Port number is too small/big.\n");
 	}
 	return port;
 }
@@ -136,7 +136,7 @@ unsigned short GetStandartPort(Protocol protocol)
 	throw std::invalid_argument("Uncnown protocol and his standart port. Use <http> or <https>.\n");
 }
 
-std::string RepairDocumnent(const std::string& document)
+std::string RepairDocument(const std::string& document)
 {
 	if (document == "")
 	{

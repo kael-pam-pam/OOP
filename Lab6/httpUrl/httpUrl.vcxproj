@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CDashboard.cpp" />
     <ClCompile Include="CHttpUrl.cpp" />
     <ClCompile Include="CUrlParsingError.cpp" />
     <ClCompile Include="main.cpp" />
